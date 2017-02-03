@@ -1,0 +1,29 @@
+version: '2'
+
+services:
+  hadoop-master:
+    container_name: hadoop-master
+    entrypoint :
+      - "sh"
+      - "-c"
+      - "service ssh start; tail -f /dev/null"
+    build: .
+    ports:
+      - "50070:50070"
+      - "8088:8088"
+
+  hadoop-slave1:
+    container_name: hadoop-slave1
+    entrypoint :
+      - "sh"
+      - "-c"
+      - "service ssh start; tail -f /dev/null"
+    build: .
+
+  hadoop-slave2:
+    container_name: hadoop-slave2
+    entrypoint :
+      - "sh"
+      - "-c"
+      - "service ssh start; tail -f /dev/null"
+    build: .   

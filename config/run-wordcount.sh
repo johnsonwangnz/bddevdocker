@@ -1,4 +1,6 @@
-t the hadoop cluster by running wordcount
+#!/bin/bash
+
+#  test the hadoop cluster by running wordcount
 
 # create input files 
 mkdir input
