@@ -13,9 +13,16 @@ RUN wget http://www-eu.apache.org/dist/hadoop/common/hadoop-2.7.3/hadoop-2.7.3.t
     mv hadoop-2.7.3 /usr/local/hadoop && \
     rm hadoop-2.7.3.tar.gz
 
+# install hbase 1.2.4
+RUN wget http://www-eu.apache.org/dist/hbase/1.2.4/hbase-1.2.4-bin.tar.gz && \
+    tar -xzvf  hbase-1.2.4-bin.tar.gz && \
+    mv hbase-1.2.4 /usr/local/hbase && \
+    rm hbase-1.2.4-bin.tar.gz
+
 # set environment variable
 ENV JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64 
-ENV HADOOP_HOME=/usr/local/hadoop 
+ENV HADOOP_HOME=/usr/local/hadoop
+ENV HBASE_HOME=/usr/local/hbase 
 ENV PATH=$PATH:/usr/local/hadoop/bin:/usr/local/hadoop/sbin
 
 # ssh without key
@@ -36,12 +43,16 @@ RUN mv /tmp/ssh_config ~/.ssh/config && \
     mv /tmp/yarn-site.xml $HADOOP_HOME/etc/hadoop/yarn-site.xml && \
     mv /tmp/slaves $HADOOP_HOME/etc/hadoop/slaves && \
     mv /tmp/start-hadoop.sh ~/start-hadoop.sh && \
-    mv /tmp/run-wordcount.sh ~/run-wordcount.sh
+    mv /tmp/run-wordcount.sh ~/run-wordcount.sh && \
+    mv /tmp/hbase-env.sh $HBASE_HOME/conf/hbase-env.sh && \
+    #mv /tmp/hbase-site.xml $HBASE_HOME/conf/hbase-site.xml
+    mv /tmp/hbase-site-pseudo.xml $HBASE_HOME/conf/hbase-site.xml
 
 RUN chmod +x ~/start-hadoop.sh && \
     chmod +x ~/run-wordcount.sh && \
     chmod +x $HADOOP_HOME/sbin/start-dfs.sh && \
-    chmod +x $HADOOP_HOME/sbin/start-yarn.sh 
+    chmod +x $HADOOP_HOME/sbin/start-yarn.sh && \
+    chmod +x $HBASE_HOME/bin/start-hbase.sh 
 
 # format namenode
 RUN /usr/local/hadoop/bin/hdfs namenode -format
