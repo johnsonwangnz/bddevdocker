@@ -55,16 +55,20 @@ RUN mv /tmp/ssh_config ~/.ssh/config && \
     mv /tmp/hbase-env.sh $HBASE_HOME/conf/hbase-env.sh && \
     #mv /tmp/hbase-site.xml $HBASE_HOME/conf/hbase-site.xml
     mv /tmp/hbase-site-pseudo.xml $HBASE_HOME/conf/hbase-site.xml && \
+    mv /tmp/start-hbase.sh ~/start-hbase.sh && \
     mv /tmp/spark-env.sh $SPARK_HOME/conf/spark-env.sh && \
     mv /tmp/spark-defaults.conf $SPARK_HOME/conf/spark-defaults.conf && \
-    mv /tmp/spark-slaves $SPARK_HOME/conf/slaves
+    mv /tmp/spark-slaves $SPARK_HOME/conf/slaves && \
+    mv /tmp/start-spark.sh ~/start-spark.sh 
 
 RUN chmod +x ~/start-hadoop.sh && \
     chmod +x ~/run-wordcount.sh && \
+    chmod +x ~/start-hbase.sh && \
+    chmod +x ~/start-spark.sh && \
     chmod +x $HADOOP_HOME/sbin/start-dfs.sh && \
     chmod +x $HADOOP_HOME/sbin/start-yarn.sh && \
     chmod +x $HBASE_HOME/bin/start-hbase.sh && \
-    chmod +x $SPARK_HOME/sbin/start-all.sh
+    chmod +x $SPARK_HOME/sbin/start-all.sh 
 
 # format namenode
 RUN /usr/local/hadoop/bin/hdfs namenode -format
