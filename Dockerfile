@@ -19,10 +19,18 @@ RUN wget http://www-eu.apache.org/dist/hbase/1.2.4/hbase-1.2.4-bin.tar.gz && \
     mv hbase-1.2.4 /usr/local/hbase && \
     rm hbase-1.2.4-bin.tar.gz
 
+
+# install Spark 2.1.0
+RUN wget http://d3kbcqa49mib13.cloudfront.net/spark-2.1.0-bin-hadoop2.7.tgz && \
+    tar -xzvf  spark-2.1.0-bin-hadoop2.7.tgz && \
+    mv spark-2.1.0-bin-hadoop2.7 /usr/local/spark && \
+    rm spark-2.1.0-bin-hadoop2.7.tgz
+
 # set environment variable
 ENV JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64 
 ENV HADOOP_HOME=/usr/local/hadoop
 ENV HBASE_HOME=/usr/local/hbase 
+ENV SPARK_HOME=/usr/local/spark
 ENV PATH=$PATH:/usr/local/hadoop/bin:/usr/local/hadoop/sbin
 
 # ssh without key
@@ -46,13 +54,17 @@ RUN mv /tmp/ssh_config ~/.ssh/config && \
     mv /tmp/run-wordcount.sh ~/run-wordcount.sh && \
     mv /tmp/hbase-env.sh $HBASE_HOME/conf/hbase-env.sh && \
     #mv /tmp/hbase-site.xml $HBASE_HOME/conf/hbase-site.xml
-    mv /tmp/hbase-site-pseudo.xml $HBASE_HOME/conf/hbase-site.xml
+    mv /tmp/hbase-site-pseudo.xml $HBASE_HOME/conf/hbase-site.xml && \
+    mv /tmp/spark-env.sh $SPARK_HOME/conf/spark-env.sh && \
+    mv /tmp/spark-defaults.conf $SPARK_HOME/conf/spark-defaults.conf && \
+    mv /tmp/spark-slaves $SPARK_HOME/conf/slaves
 
 RUN chmod +x ~/start-hadoop.sh && \
     chmod +x ~/run-wordcount.sh && \
     chmod +x $HADOOP_HOME/sbin/start-dfs.sh && \
     chmod +x $HADOOP_HOME/sbin/start-yarn.sh && \
-    chmod +x $HBASE_HOME/bin/start-hbase.sh 
+    chmod +x $HBASE_HOME/bin/start-hbase.sh && \
+    chmod +x $SPARK_HOME/sbin/start-all.sh
 
 # format namenode
 RUN /usr/local/hadoop/bin/hdfs namenode -format

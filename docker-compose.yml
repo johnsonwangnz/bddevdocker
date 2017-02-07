@@ -9,8 +9,15 @@ services:
       - "service ssh start; tail -f /dev/null"
     build: .
     ports:
+      # port for namenode
       - "50070:50070"
+      # port for web ui REsourceManager
       - "8088:8088"
+      # port for web ui spark properties
+      - "4040:4040"
+      # port for web ui spark master
+      - "8080:8080"
+     
 
   hadoop-slave1:
     container_name: hadoop-slave1
@@ -18,7 +25,12 @@ services:
       - "sh"
       - "-c"
       - "service ssh start; tail -f /dev/null"
+    
     build: .
+    ports:
+      #port for web ui of spark worker
+      - "8081:8081"
+
 
   hadoop-slave2:
     container_name: hadoop-slave2
@@ -26,4 +38,7 @@ services:
       - "sh"
       - "-c"
       - "service ssh start; tail -f /dev/null"
-    build: .   
+    build: .
+    ports:
+      #ports for web ui of spark worker
+      - "8082:8081"   
