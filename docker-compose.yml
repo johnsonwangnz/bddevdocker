@@ -8,6 +8,8 @@ services:
       - "-c"
       - "service ssh start; tail -f /dev/null"
     build: .
+    volumes:
+      - ./data:/root/shared
     ports:
       # port for namenode
       - "50070:50070"
@@ -27,6 +29,8 @@ services:
       - "service ssh start; tail -f /dev/null"
     
     build: .
+    volumes:
+      - ./data:/root/shared
     ports:
       #port for web ui of spark worker
       - "8081:8081"
@@ -39,6 +43,10 @@ services:
       - "-c"
       - "service ssh start; tail -f /dev/null"
     build: .
+    volumes:
+      - ./data:/root/shared
     ports:
       #ports for web ui of spark worker
-      - "8082:8081"   
+      - "8082:8081"
+
+   
