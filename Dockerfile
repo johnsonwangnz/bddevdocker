@@ -4,6 +4,19 @@ MAINTAINER Johnson Wang <johnsonwangnz@gmail.com>
 
 WORKDIR /root
 
+# set environment variable
+ENV TZ=Pacific/Auckland
+ENV JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
+ENV HADOOP_HOME=/usr/local/hadoop
+ENV HBASE_HOME=/usr/local/hbase
+ENV SPARK_HOME=/usr/local/spark
+ENV PATH=$PATH:/usr/local/hadoop/bin:/usr/local/hadoop/sbin
+
+#set the timezone
+RUN echo $TZ | tee /etc/timezone && \
+    dpkg-reconfigure --frontend noninteractive tzdata
+
+
 #install openssh-server, openjdk-7-jdk wget
 RUN apt-get update && apt-get install -y openssh-server openjdk-7-jdk wget
 
@@ -26,12 +39,6 @@ RUN wget http://d3kbcqa49mib13.cloudfront.net/spark-2.1.0-bin-hadoop2.7.tgz && \
     mv spark-2.1.0-bin-hadoop2.7 /usr/local/spark && \
     rm spark-2.1.0-bin-hadoop2.7.tgz
 
-# set environment variable
-ENV JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64 
-ENV HADOOP_HOME=/usr/local/hadoop
-ENV HBASE_HOME=/usr/local/hbase 
-ENV SPARK_HOME=/usr/local/spark
-ENV PATH=$PATH:/usr/local/hadoop/bin:/usr/local/hadoop/sbin
 
 # ssh without key
 RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa -P '' && \
@@ -72,6 +79,7 @@ RUN chmod +x ~/start-hadoop.sh && \
 
 # format namenode
 RUN /usr/local/hadoop/bin/hdfs namenode -format
+
 
 
 CMD [ "sh", "-c", "service ssh start; bash"]

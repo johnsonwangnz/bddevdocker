@@ -12,4 +12,17 @@
         <name>yarn.resourcemanager.hostname</name>
         <value>hadoop-master</value>
     </property>
+    <property>
+        <name>yarn.log-aggregation-enable</name>
+        <value>true</value>
+    </property>
+    <property>
+        <name>yarn.log-aggregation.retain-seconds</name>
+        <value>259200</value>
+    </property>
+
+    <property>
+        <name>yarn.log-aggregation.retain-check-interval-seconds</name>
+        <value>3600</value>
+    </property>
 </configuration>
