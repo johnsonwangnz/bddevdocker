@@ -61,7 +61,10 @@ RUN mv /tmp/ssh_config ~/.ssh/config && \
     mv /tmp/run-wordcount.sh ~/run-wordcount.sh && \
     mv /tmp/hbase-env.sh $HBASE_HOME/conf/hbase-env.sh && \
     #mv /tmp/hbase-site.xml $HBASE_HOME/conf/hbase-site.xml
-    mv /tmp/hbase-site-pseudo.xml $HBASE_HOME/conf/hbase-site.xml && \
+    #mv /tmp/hbase-site-pseudo.xml $HBASE_HOME/conf/hbase-site.xml && \
+    mv /tmp/regionservers $HBASE_HOME/conf/regionservers && \
+    mv /tmp/hbase-site-full.xml $HBASE_HOME/conf/hbase-site.xml && \
+    #mv /tmp/backup-masters $HBASE_HOME/conf/backup-masters && \
     mv /tmp/start-hbase.sh ~/start-hbase.sh && \
     mv /tmp/spark-env.sh $SPARK_HOME/conf/spark-env.sh && \
     mv /tmp/spark-defaults.conf $SPARK_HOME/conf/spark-defaults.conf && \

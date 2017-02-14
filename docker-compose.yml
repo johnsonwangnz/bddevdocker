@@ -3,6 +3,7 @@ version: '2'
 services:
   hadoop-master:
     container_name: hadoop-master
+    hostname: hadoop-master
     entrypoint :
       - "sh"
       - "-c"
@@ -21,10 +22,16 @@ services:
       - "4040:4040"
       # port for web ui spark master
       - "8080:8080"
-     
+    networks:
+      bdnetwork:
+        ipv4_address: 172.18.0.2
+    extra_hosts:
+      - "hadoop-slave1:172.18.0.3"
+      - "hadoop-slave2:172.18.0.4" 
 
   hadoop-slave1:
     container_name: hadoop-slave1
+    hostname: hadoop-slave1
     entrypoint :
       - "sh"
       - "-c"
@@ -36,10 +43,16 @@ services:
     ports:
       #port for web ui of spark worker
       - "8081:8081"
-
+    networks:
+      bdnetwork:
+        ipv4_address: 172.18.0.3
+    extra_hosts:
+      - "hadoop-master:172.18.0.2"
+      - "hadoop-slave2:172.18.0.4"
 
   hadoop-slave2:
     container_name: hadoop-slave2
+    hostname: hadoop-slave2
     entrypoint :
       - "sh"
       - "-c"
@@ -50,5 +63,19 @@ services:
     ports:
       #ports for web ui of spark worker
       - "8082:8081"
-
+    networks:
+      bdnetwork:
+        ipv4_address: 172.18.0.4
+    extra_hosts:
+      - "hadoop-master:172.18.0.2"
+      - "hadoop-slave1:172.18.0.3"
    
+networks:
+  bdnetwork:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.18.0.0/16
+          gateway: 172.18.0.1
+
