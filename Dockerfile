@@ -78,6 +78,7 @@ RUN mv /tmp/ssh_config ~/.ssh/config && \
     mv /tmp/spark-env.sh $SPARK_HOME/conf/spark-env.sh && \
     mv /tmp/spark-defaults.conf $SPARK_HOME/conf/spark-defaults.conf && \
     mv /tmp/spark-slaves $SPARK_HOME/conf/slaves && \
+    cp $HIVE_HOME/conf/hive-site.xml $SPARK_HOME/conf/hive-site.xml && \
     mv /tmp/start-spark.sh ~/start-spark.sh 
 
 RUN chmod +x ~/start-hadoop.sh && \
