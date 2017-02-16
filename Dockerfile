@@ -10,6 +10,7 @@ ENV JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
 ENV HADOOP_HOME=/usr/local/hadoop
 ENV HBASE_HOME=/usr/local/hbase
 ENV SPARK_HOME=/usr/local/spark
+ENV HIVE_HOME=/usr/local/hive
 ENV PATH=$PATH:/usr/local/hadoop/bin:/usr/local/hadoop/sbin
 
 #set the timezone
@@ -32,7 +33,12 @@ RUN wget http://www-eu.apache.org/dist/hbase/1.2.4/hbase-1.2.4-bin.tar.gz && \
     mv hbase-1.2.4 /usr/local/hbase && \
     rm hbase-1.2.4-bin.tar.gz
 
-
+# install hive 2.1.1
+RUN wget http://www-eu.apache.org/dist/hive/hive-2.1.1/apache-hive-2.1.1-bin.tar.gz && \
+    tar -xzvf  apache-hive-2.1.1-bin.tar.gz && \
+    mv apache-hive-2.1.1-bin  /usr/local/hive && \
+    rm apache-hive-2.1.1-bin.tar.gz
+ 
 # install Spark 2.1.0
 RUN wget http://d3kbcqa49mib13.cloudfront.net/spark-2.1.0-bin-hadoop2.7.tgz && \
     tar -xzvf  spark-2.1.0-bin-hadoop2.7.tgz && \
@@ -66,6 +72,9 @@ RUN mv /tmp/ssh_config ~/.ssh/config && \
     mv /tmp/hbase-site-full.xml $HBASE_HOME/conf/hbase-site.xml && \
     #mv /tmp/backup-masters $HBASE_HOME/conf/backup-masters && \
     mv /tmp/start-hbase.sh ~/start-hbase.sh && \
+    mv /tmp/hive-env.sh $HIVE_HOME/conf/hive-env.sh && \
+    mv /tmp/hive-site.xml $HIVE_HOME/conf/hive-site.xml && \
+    mv /tmp/install-hive.sh ~/install-hive.sh && \ 
     mv /tmp/spark-env.sh $SPARK_HOME/conf/spark-env.sh && \
     mv /tmp/spark-defaults.conf $SPARK_HOME/conf/spark-defaults.conf && \
     mv /tmp/spark-slaves $SPARK_HOME/conf/slaves && \
@@ -74,6 +83,7 @@ RUN mv /tmp/ssh_config ~/.ssh/config && \
 RUN chmod +x ~/start-hadoop.sh && \
     chmod +x ~/run-wordcount.sh && \
     chmod +x ~/start-hbase.sh && \
+    chmod +x ~/install-hive.sh && \
     chmod +x ~/start-spark.sh && \
     chmod +x $HADOOP_HOME/sbin/start-dfs.sh && \
     chmod +x $HADOOP_HOME/sbin/start-yarn.sh && \

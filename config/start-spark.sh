@@ -1,8 +1,8 @@
 #!/bin/bash
 
-echo -e "\n"
+echo -e "Start all for spark\n"
 
 $SPARK_HOME/sbin/start-all.sh
 
-echo -e "\n"
+echo -e "Spark is started.\n"
 
