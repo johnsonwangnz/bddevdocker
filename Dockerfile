@@ -11,6 +11,7 @@ ENV HADOOP_HOME=/usr/local/hadoop
 ENV HBASE_HOME=/usr/local/hbase
 ENV SPARK_HOME=/usr/local/spark
 ENV HIVE_HOME=/usr/local/hive
+ENV DERBY_HOME=/usr/local/derby
 ENV PATH=$PATH:/usr/local/hadoop/bin:/usr/local/hadoop/sbin
 
 #set the timezone
@@ -32,6 +33,12 @@ RUN wget http://www-eu.apache.org/dist/hbase/1.2.4/hbase-1.2.4-bin.tar.gz && \
     tar -xzvf  hbase-1.2.4-bin.tar.gz && \
     mv hbase-1.2.4 /usr/local/hbase && \
     rm hbase-1.2.4-bin.tar.gz
+
+# install derby database which is needed by hive
+RUN wget http://archive.apache.org/dist/db/derby/db-derby-10.10.2.0/db-derby-10.10.2.0-bin.tar.gz && \
+    tar -xzvf db-derby-10.10.2.0-bin.tar.gz && \
+    mv db-derby-10.10.2.0-bin /usr/local/derby && \
+    rm db-derby-10.10.2.0-bin.tar.gz
 
 # install hive 2.1.1
 RUN wget http://www-eu.apache.org/dist/hive/hive-2.1.1/apache-hive-2.1.1-bin.tar.gz && \
@@ -74,11 +81,13 @@ RUN mv /tmp/ssh_config ~/.ssh/config && \
     mv /tmp/start-hbase.sh ~/start-hbase.sh && \
     mv /tmp/hive-env.sh $HIVE_HOME/conf/hive-env.sh && \
     mv /tmp/hive-site.xml $HIVE_HOME/conf/hive-site.xml && \
+    cp $DERBY_HOME/lib/derbyclient.jar $HIVE_HOME/lib && \
+    cp $DERBY_HOME/lib/derbytools.jar $HIVE_HOME/lib && \
     mv /tmp/install-hive.sh ~/install-hive.sh && \ 
     mv /tmp/spark-env.sh $SPARK_HOME/conf/spark-env.sh && \
     mv /tmp/spark-defaults.conf $SPARK_HOME/conf/spark-defaults.conf && \
     mv /tmp/spark-slaves $SPARK_HOME/conf/slaves && \
-    cp $HIVE_HOME/conf/hive-site.xml $SPARK_HOME/conf/hive-site.xml && \
+    cp $HIVE_HOME/conf/hive-site.xml $SPARK_HOME/conf && \
     mv /tmp/start-spark.sh ~/start-spark.sh 
 
 RUN chmod +x ~/start-hadoop.sh && \

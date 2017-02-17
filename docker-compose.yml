@@ -35,7 +35,7 @@ services:
     entrypoint :
       - "sh"
       - "-c"
-      - "service ssh start; tail -f /dev/null"
+      - "service ssh start; /usr/local/derby/bin/startNetworkServer -h hadoop-slave1 ; tail -f /dev/null"
     
     build: .
     volumes:
