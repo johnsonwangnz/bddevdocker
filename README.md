@@ -23,6 +23,15 @@ sudo docker-compose up -d
 # To log into bash
 sudo docker exec -it hadoop-master
 
+# To stop all containers
+sudo docker-compose stop
+
+# To destroy all relevant docker images
+sudo docker-compose down
+
+# To build images
+sudo docker-compose build
+
 # To start hadoop
 ./start-hadoop.sh
 
