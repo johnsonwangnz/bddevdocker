@@ -12,6 +12,7 @@ ENV HBASE_HOME=/usr/local/hbase
 ENV SPARK_HOME=/usr/local/spark
 ENV HIVE_HOME=/usr/local/hive
 ENV DERBY_HOME=/usr/local/derby
+ENV PIG_HOME=/usr/local/pig
 ENV PATH=$PATH:/usr/local/hadoop/bin:/usr/local/hadoop/sbin
 
 #set the timezone
@@ -45,6 +46,13 @@ RUN wget http://www-eu.apache.org/dist/hive/hive-2.1.1/apache-hive-2.1.1-bin.tar
     tar -xzvf  apache-hive-2.1.1-bin.tar.gz && \
     mv apache-hive-2.1.1-bin  /usr/local/hive && \
     rm apache-hive-2.1.1-bin.tar.gz
+
+# install pig 0.16.0
+RUN wget http://www-eu.apache.org/dist/pig/pig-0.16.0/pig-0.16.0.tar.gz && \
+    tar -xzvf  pig-0.16.0.tar.gz && \
+    mv pig-0.16.0  /usr/local/pig && \
+    rm pig-0.16.0.tar.gz
+
  
 # install Spark 2.1.0
 RUN wget http://d3kbcqa49mib13.cloudfront.net/spark-2.1.0-bin-hadoop2.7.tgz && \
