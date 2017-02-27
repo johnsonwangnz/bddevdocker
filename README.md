@@ -1,6 +1,6 @@
 # bddevdocker
 
-This is big data development docker image.
+This is a big data development docker image.
 
 Following applications are installed:
 Hadoop, hbase, hive,pig,and spark
