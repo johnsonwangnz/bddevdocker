@@ -8,13 +8,14 @@ Hadoop, hbase, hive,pig,and spark
 It has three nodes:
 
 ##hadoop-master
-ResourceManager, NameNode, SecondaryNamenode, HMaster(HBase), HQuorumPeer(HBase), Master(spark), Worker(spark)
+ResourceManager, NameNode, SecondaryNamenode, HMaster(HBase),  Master(spark), Worker(spark)
 
 ##hadoop-slave1
-DataNode, HQuorumPeer(HBase), HRegionServer(HBase), NetworkServerControl(derby server for Hive meta store), Worker(spark)
+DataNode, QuorumPeerMain(ZooKeeper), HRegionServer(HBase), NetworkServerControl(derby server for Hive meta store), Worker(spark)
+
 
 ##hadoop-slave2
-DataNode, HQuorumPeer(HBase), HRegionServer(HBase), JobHistoryServer(Hadoop), worker(spark) 
+DataNode, QuorumPeerMain(ZooKeeper) , HRegionServer(HBase), JobHistoryServer(Hadoop), worker(spark) 
 
 
 # To start all docker containers
@@ -36,6 +37,7 @@ sudo docker-compose build
 ./start-hadoop.sh
 
 # To start hbase
+./start-zookeeper.sh
 ./start-hbase.sh
 
 # To use hbase

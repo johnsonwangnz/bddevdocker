@@ -8,6 +8,7 @@ WORKDIR /root
 ENV TZ=Pacific/Auckland
 ENV JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
 ENV HADOOP_HOME=/usr/local/hadoop
+ENV ZOOKEEPER_HOME=/usr/local/zookeeper
 ENV HBASE_HOME=/usr/local/hbase
 ENV SPARK_HOME=/usr/local/spark
 ENV HIVE_HOME=/usr/local/hive
@@ -28,6 +29,13 @@ RUN wget http://www-eu.apache.org/dist/hadoop/common/hadoop-2.7.3/hadoop-2.7.3.t
     tar -xzvf hadoop-2.7.3.tar.gz && \
     mv hadoop-2.7.3 /usr/local/hadoop && \
     rm hadoop-2.7.3.tar.gz
+
+# install zookeeper 3.4.9
+RUN wget http://www-eu.apache.org/dist/zookeeper/stable/zookeeper-3.4.9.tar.gz && \
+    tar -xzvf zookeeper-3.4.9.tar.gz && \
+    mv zookeeper-3.4.9 /usr/local/zookeeper && \
+    rm zookeeper-3.4.9.tar.gz
+
 
 # install hbase 1.2.4
 RUN wget http://www-eu.apache.org/dist/hbase/1.2.4/hbase-1.2.4-bin.tar.gz && \
@@ -80,6 +88,9 @@ RUN mv /tmp/ssh_config ~/.ssh/config && \
     mv /tmp/slaves $HADOOP_HOME/etc/hadoop/slaves && \
     mv /tmp/start-hadoop.sh ~/start-hadoop.sh && \
     mv /tmp/run-wordcount.sh ~/run-wordcount.sh && \
+    mv /tmp/zoo.cfg $ZOOKEEPER_HOME/conf/zoo.cfg && \
+    mkdir /var/zookeeper_data && \
+    mv /tmp/start-zookeeper.sh ~/start-zookeeper.sh && \
     mv /tmp/hbase-env.sh $HBASE_HOME/conf/hbase-env.sh && \
     #mv /tmp/hbase-site.xml $HBASE_HOME/conf/hbase-site.xml
     #mv /tmp/hbase-site-pseudo.xml $HBASE_HOME/conf/hbase-site.xml && \
@@ -103,6 +114,7 @@ RUN chmod +x ~/start-hadoop.sh && \
     chmod +x ~/start-hbase.sh && \
     chmod +x ~/install-hive.sh && \
     chmod +x ~/start-spark.sh && \
+    chmod +x ~/start-zookeeper.sh && \
     chmod +x $HADOOP_HOME/sbin/start-dfs.sh && \
     chmod +x $HADOOP_HOME/sbin/start-yarn.sh && \
     chmod +x $HBASE_HOME/bin/start-hbase.sh && \

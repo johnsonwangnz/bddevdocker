@@ -35,7 +35,7 @@ services:
     entrypoint :
       - "sh"
       - "-c"
-      - "service ssh start; /usr/local/derby/bin/startNetworkServer -h hadoop-slave1 ; tail -f /dev/null"
+      - "rm /var/zookeeper_data/myid; echo \"1\" >/var/zookeeper_data/myid; service ssh start ;/usr/local/derby/bin/startNetworkServer -h hadoop-slave1;tail -f /dev/null"
     
     build: .
     volumes:
@@ -56,7 +56,7 @@ services:
     entrypoint :
       - "sh"
       - "-c"
-      - "service ssh start; tail -f /dev/null"
+      - "service ssh start;rm /var/zookeeper_data/myid; echo \"2\" >/var/zookeeper_data/myid; tail -f /dev/null"
     build: .
     volumes:
       - ./data:/root/shared
