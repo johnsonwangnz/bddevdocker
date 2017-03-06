@@ -11,11 +11,11 @@ It has three nodes:
 ResourceManager, NameNode, SecondaryNamenode, HMaster(HBase),  Master(spark), Worker(spark)
 
 ##hadoop-slave1
-DataNode, QuorumPeerMain(ZooKeeper), HRegionServer(HBase), NetworkServerControl(derby server for Hive meta store), Worker(spark)
+DataNode, QuorumPeerMain(ZooKeeper), HRegionServer(HBase), NetworkServerControl(derby server for Hive meta store), Worker(spark), Kafka
 
 
 ##hadoop-slave2
-DataNode, QuorumPeerMain(ZooKeeper) , HRegionServer(HBase), JobHistoryServer(Hadoop), worker(spark) 
+DataNode, QuorumPeerMain(ZooKeeper) , HRegionServer(HBase), JobHistoryServer(Hadoop), worker(spark), Kafka 
 
 
 # To start all docker containers
@@ -58,6 +58,10 @@ $PIG_HOME/bin/pig
 
 # To use pyspark  
 $SPARK_HOME/bin/pyspark --master spark://hadoop-master:7077
+
+# To Start kafka
+./start-zookeeper.sh
+./start-kafka.sh
 
 # Mounted volume:
 ~/shared ==> /data on host

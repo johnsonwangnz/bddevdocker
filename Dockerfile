@@ -14,6 +14,7 @@ ENV SPARK_HOME=/usr/local/spark
 ENV HIVE_HOME=/usr/local/hive
 ENV DERBY_HOME=/usr/local/derby
 ENV PIG_HOME=/usr/local/pig
+ENV KAFKA_HOME=/usr/local/kafka
 ENV PATH=$PATH:/usr/local/hadoop/bin:/usr/local/hadoop/sbin
 
 #set the timezone
@@ -68,6 +69,12 @@ RUN wget http://d3kbcqa49mib13.cloudfront.net/spark-2.1.0-bin-hadoop2.7.tgz && \
     mv spark-2.1.0-bin-hadoop2.7 /usr/local/spark && \
     rm spark-2.1.0-bin-hadoop2.7.tgz
 
+# install Kafka 0.10.2.0
+RUN wget http://www-eu.apache.org/dist/kafka/0.10.2.0/kafka_2.11-0.10.2.0.tgz && \
+    tar -xzvf  kafka_2.11-0.10.2.0.tgz && \
+    mv kafka_2.11-0.10.2.0 /usr/local/kafka && \
+    rm kafka_2.11-0.10.2.0.tgz
+
 
 # ssh without key
 RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa -P '' && \
@@ -107,7 +114,12 @@ RUN mv /tmp/ssh_config ~/.ssh/config && \
     mv /tmp/spark-defaults.conf $SPARK_HOME/conf/spark-defaults.conf && \
     mv /tmp/spark-slaves $SPARK_HOME/conf/slaves && \
     cp $HIVE_HOME/conf/hive-site.xml $SPARK_HOME/conf && \
-    mv /tmp/start-spark.sh ~/start-spark.sh 
+    mv /tmp/start-spark.sh ~/start-spark.sh && \
+    # kafka installation
+    mv /tmp/kafka-server-1.properties $KAFKA_HOME/config/server-1.properties && \
+    mv /tmp/kafka-server-2.properties $KAFKA_HOME/config/server-2.properties && \
+    mv /tmp/start-kafka.sh ~/start-kafka.sh
+ 
 
 RUN chmod +x ~/start-hadoop.sh && \
     chmod +x ~/run-wordcount.sh && \
@@ -115,6 +127,7 @@ RUN chmod +x ~/start-hadoop.sh && \
     chmod +x ~/install-hive.sh && \
     chmod +x ~/start-spark.sh && \
     chmod +x ~/start-zookeeper.sh && \
+    chmod +x ~/start-kafka.sh && \
     chmod +x $HADOOP_HOME/sbin/start-dfs.sh && \
     chmod +x $HADOOP_HOME/sbin/start-yarn.sh && \
     chmod +x $HBASE_HOME/bin/start-hbase.sh && \
