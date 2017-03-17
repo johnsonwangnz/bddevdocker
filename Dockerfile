@@ -15,6 +15,7 @@ ENV HIVE_HOME=/usr/local/hive
 ENV DERBY_HOME=/usr/local/derby
 ENV PIG_HOME=/usr/local/pig
 ENV KAFKA_HOME=/usr/local/kafka
+ENV ZEPPELIN_HOME=/usr/local/zeppelin
 ENV PATH=$PATH:/usr/local/hadoop/bin:/usr/local/hadoop/sbin
 
 #set the timezone
@@ -75,6 +76,11 @@ RUN wget http://www-eu.apache.org/dist/kafka/0.10.2.0/kafka_2.11-0.10.2.0.tgz &&
     mv kafka_2.11-0.10.2.0 /usr/local/kafka && \
     rm kafka_2.11-0.10.2.0.tgz
 
+# install zeppelin 0.7.0 
+RUN wget http://www-eu.apache.org/dist/zeppelin/zeppelin-0.7.0/zeppelin-0.7.0-bin-all.tgz && \
+    tar -xzvf zeppelin-0.7.0-bin-all.tgz && \
+    mv zeppelin-0.7.0-bin-all /usr/local/zeppelin && \
+    rm zeppelin-0.7.0-bin-all.tgz
 
 # ssh without key
 RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa -P '' && \
@@ -109,25 +115,33 @@ RUN mv /tmp/ssh_config ~/.ssh/config && \
     mv /tmp/hive-site.xml $HIVE_HOME/conf/hive-site.xml && \
     cp $DERBY_HOME/lib/derbyclient.jar $HIVE_HOME/lib && \
     cp $DERBY_HOME/lib/derbytools.jar $HIVE_HOME/lib && \
-    mv /tmp/install-hive.sh ~/install-hive.sh && \ 
+    mv /tmp/install-hive.sh ~/install-hive.sh && \
+    mv /tmp/start-hive.sh ~/start-hive.sh && \ 
     mv /tmp/spark-env.sh $SPARK_HOME/conf/spark-env.sh && \
     mv /tmp/spark-defaults.conf $SPARK_HOME/conf/spark-defaults.conf && \
     mv /tmp/spark-slaves $SPARK_HOME/conf/slaves && \
-    cp $HIVE_HOME/conf/hive-site.xml $SPARK_HOME/conf && \
+    mv /tmp/spark-log4j.properties $SPARK_HOME/conf/log4j.properties  && \
+    mkdir /tmp/spark-events && \
+    mv /tmp/spark-hive-site.xml $SPARK_HOME/conf/hive-site.xml && \
     mv /tmp/start-spark.sh ~/start-spark.sh && \
     # kafka installation
     mv /tmp/kafka-server-1.properties $KAFKA_HOME/config/server-1.properties && \
     mv /tmp/kafka-server-2.properties $KAFKA_HOME/config/server-2.properties && \
-    mv /tmp/start-kafka.sh ~/start-kafka.sh
+    mv /tmp/start-kafka.sh ~/start-kafka.sh && \
+    # zeppelin installation
+    mv /tmp/zeppelin-env.sh $ZEPPELIN_HOME/conf && \
+    mv /tmp/start-zeppelin.sh ~/start-zeppelin.sh
  
 
 RUN chmod +x ~/start-hadoop.sh && \
     chmod +x ~/run-wordcount.sh && \
     chmod +x ~/start-hbase.sh && \
     chmod +x ~/install-hive.sh && \
+    chmod +x ~/start-hive.sh && \
     chmod +x ~/start-spark.sh && \
     chmod +x ~/start-zookeeper.sh && \
     chmod +x ~/start-kafka.sh && \
+    chmod +x ~/start-zeppelin.sh && \
     chmod +x $HADOOP_HOME/sbin/start-dfs.sh && \
     chmod +x $HADOOP_HOME/sbin/start-yarn.sh && \
     chmod +x $HBASE_HOME/bin/start-hbase.sh && \

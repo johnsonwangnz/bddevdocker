@@ -329,7 +329,7 @@
   </property>
   <property>
     <name>hive.metastore.uris</name>
-    <value/>
+    <value>thrift://hadoop-slave1:9083</value>
     <description>Thrift URI for the remote metastore. Used by metastore client to connect to remote metastore.</description>
   </property>
   <property>
@@ -5346,5 +5346,9 @@
     <value>hive.added.files.path,hive.added.jars.path,hive.added.archives.path</value>
     <description>Comma separated list of variables which are used internally and should not be configurable.</description>
   </property>
+  <property>
+   <name>datanucleus.autoStartMechanism</name>
+   <value>SchemaTable</value>
+ </property>
 </configuration>
 

@@ -31,7 +31,7 @@ export HADOOP_CONF_DIR='$HADOOP_HOME/conf'
 # Options read by executors and drivers running inside the cluster
 # - SPARK_LOCAL_IP, to set the IP address Spark binds to on this node
 # - SPARK_PUBLIC_DNS, to set the public DNS name of the driver program
-export SPARK_PUBLIC_DNS='localhost'
+# export SPARK_PUBLIC_DNS='localhost'
 # - SPARK_CLASSPATH, default classpath entries to append
 # - SPARK_LOCAL_DIRS, storage directories to use on this node for shuffle and RDD data
 # - MESOS_NATIVE_JAVA_LIBRARY, to point to your libmesos.so if you use Mesos
@@ -45,16 +45,16 @@ export SPARK_PUBLIC_DNS='localhost'
 
 # Options for the daemons used in the standalone deploy mode
 # - SPARK_MASTER_HOST, to bind the master to a different IP address or hostname
-export SPARK_MASTER_HOST='hadoop-master'
+# export SPARK_MASTER_HOST='hadoop-master'
 # - SPARK_MASTER_PORT / SPARK_MASTER_WEBUI_PORT, to use non-default ports for the master
-export SPARK_MASTER_WEBUI_PORT='8080'
+# export SPARK_MASTER_WEBUI_PORT='8080'
 # - SPARK_MASTER_OPTS, to set config properties only for the master (e.g. "-Dx=y")
 # - SPARK_WORKER_CORES, to set the number of cores to use on this machine
-export SPARK_WORKER_CORES='2'
+# export SPARK_WORKER_CORES='2'
 # - SPARK_WORKER_MEMORY, to set how much total memory workers have to give executors (e.g. 1000m, 2g)
-export SPARK_WORKER_MEMORY='1g'
+# export SPARK_WORKER_MEMORY='1g'
 # - SPARK_WORKER_PORT / SPARK_WORKER_WEBUI_PORT, to use non-default ports for the worker
-export SPARK_WORKER_WEBUI_PORT='8081'
+# export SPARK_WORKER_WEBUI_PORT='8081'
 # - SPARK_WORKER_INSTANCES, to set the number of worker processes per node
 # - SPARK_WORKER_DIR, to set the working directory of worker processes
 # - SPARK_WORKER_OPTS, to set config properties only for the worker (e.g. "-Dx=y")
