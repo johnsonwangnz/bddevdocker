@@ -4,6 +4,7 @@ services:
   hadoop-master:
     container_name: hadoop-master
     hostname: hadoop-master
+    mem_limit: 3000m
     entrypoint :
       - "sh"
       - "-c"
@@ -32,6 +33,7 @@ services:
   hadoop-slave1:
     container_name: hadoop-slave1
     hostname: hadoop-slave1
+    mem_limit: 3000m
     entrypoint :
       - "sh"
       - "-c"
@@ -53,6 +55,7 @@ services:
   hadoop-slave2:
     container_name: hadoop-slave2
     hostname: hadoop-slave2
+    mem_limit: 3000m
     entrypoint :
       - "sh"
       - "-c"

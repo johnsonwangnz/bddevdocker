@@ -19,7 +19,8 @@
 # export JAVA_HOME=
 
 # export MASTER=                 		# Spark master url. eg. spark://master_addr:7077. Leave empty if you want to use local mode.
-export MASTER='spark://hadoop-master:7077'
+# export MASTER='spark://hadoop-master:7077'
+export MASTER='yarn'
 export ZEPPELIN_MEM='-Xmx1g'
 # export ZEPPELIN_JAVA_OPTS      		# Additional jvm options. for example, export ZEPPELIN_JAVA_OPTS="-Dspark.executor.memory=8g -Dspark.cores.max=16"
 # export ZEPPELIN_MEM            		# Zeppelin jvm mem options Default -Xms1024m -Xmx1024m -XX:MaxPermSize=512m
@@ -53,9 +54,10 @@ export ZEPPELIN_PORT='8082'
 ##
 # export SPARK_HOME                             # (required) When it is defined, load it instead of Zeppelin embedded Spark libraries
 
-# export SPARK_HOME='$SPARK_HOME'
+export SPARK_HOME='/usr/local/spark'
 
 # export SPARK_SUBMIT_OPTIONS                   # (optional) extra options to pass to spark submit. eg) "--driver-memory 512M --executor-memory 1G".
+export SPARK_SUBMIT_OPTIONS=' --deploy-mode client'
 # export SPARK_APP_NAME                         # (optional) The name of spark application.
 
 ## Use embedded spark binaries ##
@@ -65,7 +67,7 @@ export ZEPPELIN_PORT='8082'
 # Options read in YARN client mode
 
 # export HADOOP_CONF_DIR         		# yarn-site.xml is located in configuration directory in HADOOP_CONF_DIR.
-export HADOOP_CONF_DIR='$HADOOP_HOME/conf'
+export HADOOP_CONF_DIR='/usr/local/hadoop/etc/hadoop'
 # Pyspark (supported with Spark 1.2.1 and above)
 # To configure pyspark, you need to set spark distribution's path to 'spark.home' property in Interpreter setting screen in Zeppelin GUI
 # export PYSPARK_PYTHON          		# path to the python command. must be the same path on the driver(Zeppelin) and all workers.
@@ -85,7 +87,7 @@ export HADOOP_CONF_DIR='$HADOOP_HOME/conf'
 ## To connect to HBase running on a cluster, either HBASE_HOME or HBASE_CONF_DIR must be set
 
 # export HBASE_HOME=                    # (require) Under which HBase scripts and configuration should be
-export HBASE_HOME='$HBASE_HOME'
+export HBASE_HOME='/usr/local/hbase'
 # export HBASE_CONF_DIR=                # (optional) Alternatively, configuration directory can be set to point to the directory that has hbase-site.xml
 
 #### ZeppelinHub connection configuration ####
