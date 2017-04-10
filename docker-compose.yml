@@ -4,7 +4,7 @@ services:
   hadoop-master:
     container_name: hadoop-master
     hostname: hadoop-master
-    mem_limit: 3000m
+    mem_limit: 4000m
     entrypoint :
       - "sh"
       - "-c"
@@ -28,12 +28,13 @@ services:
         ipv4_address: 172.18.0.2
     extra_hosts:
       - "hadoop-slave1:172.18.0.3"
-      - "hadoop-slave2:172.18.0.4" 
+      - "hadoop-slave2:172.18.0.4"
+      - "graphite-server:172.18.0.5" 
 
   hadoop-slave1:
     container_name: hadoop-slave1
     hostname: hadoop-slave1
-    mem_limit: 3000m
+    mem_limit: 4000m
     entrypoint :
       - "sh"
       - "-c"
@@ -51,11 +52,12 @@ services:
     extra_hosts:
       - "hadoop-master:172.18.0.2"
       - "hadoop-slave2:172.18.0.4"
+      - "graphite-server:172.18.0.5"
 
   hadoop-slave2:
     container_name: hadoop-slave2
     hostname: hadoop-slave2
-    mem_limit: 3000m
+    mem_limit: 4000m
     entrypoint :
       - "sh"
       - "-c"
@@ -72,6 +74,24 @@ services:
     extra_hosts:
       - "hadoop-master:172.18.0.2"
       - "hadoop-slave1:172.18.0.3"
+      - "graphite-server:172.18.0.5"
+
+  graphite-server:
+    container_name: graphite-server
+    hostname: graphite-server
+    mem_limit: 1000m
+    build: ./fullgraphite
+    entrypoint :
+      - "sh"
+      - "-c"
+      - "/usr/bin/supervisord; tail -f /dev/null"
+    networks:
+      bdnetwork:
+        ipv4_address: 172.18.0.5
+    extra_hosts:
+      - "hadoop-master:172.18.0.2"
+      - "hadoop-slave1:172.18.0.3"
+      - "hadoop-slave2:172.18.0.4"
    
 networks:
   bdnetwork:

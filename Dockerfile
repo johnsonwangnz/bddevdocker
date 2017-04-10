@@ -120,7 +120,10 @@ RUN mv /tmp/ssh_config ~/.ssh/config && \
     mv /tmp/spark-env.sh $SPARK_HOME/conf/spark-env.sh && \
     mv /tmp/spark-defaults.conf $SPARK_HOME/conf/spark-defaults.conf && \
     mv /tmp/spark-slaves $SPARK_HOME/conf/slaves && \
+    mv /tmp/metrics.properties $SPARK_HOME/conf && \ 
     mv /tmp/spark-log4j.properties $SPARK_HOME/conf/log4j.properties  && \
+    mv /tmp/driver-log4j.properties $SPARK_HOME/conf/driver-log4j.properties  && \ 
+    mv /tmp/executor-log4j.properties $SPARK_HOME/conf/executor-log4j.properties  && \
     mkdir /tmp/spark-events && \
     mv /tmp/spark-hive-site.xml $SPARK_HOME/conf/hive-site.xml && \
     mv /tmp/start-spark.sh ~/start-spark.sh && \

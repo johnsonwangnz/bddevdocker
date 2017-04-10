@@ -12,4 +12,39 @@
         <name>mapreduce.jobhistory.webapp.address</name>
         <value>hadoop-slave2:19888</value>
     </property>
+    <property>
+        <name>yarn.app.mapreduce.am.resource.mb</name>
+        <value>1024</value>
+    </property>
+    <property>
+        <name>yarn.app.mapreduce.am.command-opts</name>
+        <value>-Xmx768m</value>
+    </property>
+    <property>
+        <name>mapreduce.map.cpu.vcores</name>
+        <value>1</value>
+        <description>The number of virtual cores required for each map task.</description>
+    </property>
+    <property>
+        <name>mapreduce.reduce.cpu.vcores</name>
+        <value>1</value>
+        <description>The number of virtual cores required for each map task.</description>
+    </property>
+    <property>
+        <name>mapreduce.map.memory.mb</name>
+        <value>2048</value>
+    </property>
+    <property>
+        <name>mapreduce.reduce.memory.mb</name>
+        <value>2048</value>
+    </property>
+    <property>
+        <name>mapreduce.map.java.opts</name>
+        <value>-Xmx1536m</value>
+    </property>
+    <property>
+        <name>mapreduce.reduce.java.opts</name>
+        <value>-Xmx1536m</value>
+    </property>
+
 </configuration>
