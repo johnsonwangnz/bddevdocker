@@ -26,24 +26,27 @@ RUN echo $TZ | tee /etc/timezone && \
 #install openssh-server, openjdk-7-jdk wget
 RUN apt-get update && apt-get install -y openssh-server openjdk-7-jdk wget
 
+#install full vim 
+RUN apt-get install -y vim
+
 # install hadoop 2.7.3
 RUN wget http://www-eu.apache.org/dist/hadoop/common/hadoop-2.7.3/hadoop-2.7.3.tar.gz && \
     tar -xzvf hadoop-2.7.3.tar.gz && \
     mv hadoop-2.7.3 /usr/local/hadoop && \
     rm hadoop-2.7.3.tar.gz
 
-# install zookeeper 3.4.9
-RUN wget http://www-eu.apache.org/dist/zookeeper/stable/zookeeper-3.4.9.tar.gz && \
-    tar -xzvf zookeeper-3.4.9.tar.gz && \
-    mv zookeeper-3.4.9 /usr/local/zookeeper && \
-    rm zookeeper-3.4.9.tar.gz
+# install zookeeper 3.4.10
+RUN wget http://www-eu.apache.org/dist/zookeeper/stable/zookeeper-3.4.10.tar.gz && \
+    tar -xzvf zookeeper-3.4.10.tar.gz && \
+    mv zookeeper-3.4.10 /usr/local/zookeeper && \
+    rm zookeeper-3.4.10.tar.gz
 
 
-# install hbase 1.2.4
-RUN wget http://www-eu.apache.org/dist/hbase/1.2.4/hbase-1.2.4-bin.tar.gz && \
-    tar -xzvf  hbase-1.2.4-bin.tar.gz && \
-    mv hbase-1.2.4 /usr/local/hbase && \
-    rm hbase-1.2.4-bin.tar.gz
+# install hbase 1.2.6
+RUN wget http://www-eu.apache.org/dist/hbase/stable/hbase-1.2.6-bin.tar.gz && \
+    tar -xzvf  hbase-1.2.6-bin.tar.gz && \
+    mv hbase-1.2.6 /usr/local/hbase && \
+    rm hbase-1.2.6-bin.tar.gz
 
 # install derby database which is needed by hive
 RUN wget http://archive.apache.org/dist/db/derby/db-derby-10.10.2.0/db-derby-10.10.2.0-bin.tar.gz && \
@@ -76,11 +79,11 @@ RUN wget http://www-eu.apache.org/dist/kafka/0.10.2.0/kafka_2.11-0.10.2.0.tgz &&
     mv kafka_2.11-0.10.2.0 /usr/local/kafka && \
     rm kafka_2.11-0.10.2.0.tgz
 
-# install zeppelin 0.7.0 
-RUN wget http://www-eu.apache.org/dist/zeppelin/zeppelin-0.7.0/zeppelin-0.7.0-bin-all.tgz && \
-    tar -xzvf zeppelin-0.7.0-bin-all.tgz && \
-    mv zeppelin-0.7.0-bin-all /usr/local/zeppelin && \
-    rm zeppelin-0.7.0-bin-all.tgz
+# install zeppelin 0.7.2 
+RUN wget http://www-eu.apache.org/dist/zeppelin/zeppelin-0.7.2/zeppelin-0.7.2-bin-all.tgz && \
+    tar -xzvf zeppelin-0.7.2-bin-all.tgz && \
+    mv zeppelin-0.7.2-bin-all /usr/local/zeppelin && \
+    rm zeppelin-0.7.2-bin-all.tgz
 
 # ssh without key
 RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa -P '' && \
