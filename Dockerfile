@@ -156,6 +156,7 @@ RUN chmod +x ~/start-hadoop.sh && \
 # format namenode
 RUN /usr/local/hadoop/bin/hdfs namenode -format
 
-
+# add a vagrant user as host
+RUN useradd -r -m -u 1000 vagrant
 
 CMD [ "sh", "-c", "service ssh start; bash"]
