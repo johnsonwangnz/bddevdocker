@@ -16,6 +16,8 @@ ENV DERBY_HOME=/usr/local/derby
 ENV PIG_HOME=/usr/local/pig
 ENV KAFKA_HOME=/usr/local/kafka
 ENV ZEPPELIN_HOME=/usr/local/zeppelin
+ENV FLUME_HOME=/usr/local/flume
+ENV SQOOP_HOME=/usr/local/sqoop
 ENV PATH=$PATH:/usr/local/hadoop/bin:/usr/local/hadoop/sbin
 
 #set the timezone
@@ -84,6 +86,19 @@ RUN wget http://www-eu.apache.org/dist/zeppelin/zeppelin-0.7.2/zeppelin-0.7.2-bi
     tar -xzvf zeppelin-0.7.2-bin-all.tgz && \
     mv zeppelin-0.7.2-bin-all /usr/local/zeppelin && \
     rm zeppelin-0.7.2-bin-all.tgz
+
+# install flume 1.7.0
+RUN wget http://www-eu.apache.org/dist/flume/1.7.0/apache-flume-1.7.0-bin.tar.gz && \
+    tar -xzvf apache-flume-1.7.0-bin.tar.gz && \
+    mv apache-flume-1.7.0-bin /usr/local/flume && \
+    rm apache-flume-1.7.0-bin.tar.gz	 
+
+# install sqoop 
+
+RUN wget http://www-eu.apache.org/dist/sqoop/1.4.6/sqoop-1.4.6.bin__hadoop-2.0.4-alpha.tar.gz && \
+    tar -xzvf sqoop-1.4.6.bin__hadoop-2.0.4-alpha.tar.gz && \
+    mv sqoop-1.4.6.bin__hadoop-2.0.4-alpha /usr/local/sqoop && \
+    rm  sqoop-1.4.6.bin__hadoop-2.0.4-alpha.tar.gz	 
 
 # ssh without key
 RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa -P '' && \
