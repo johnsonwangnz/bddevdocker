@@ -56,11 +56,11 @@ RUN wget http://archive.apache.org/dist/db/derby/db-derby-10.10.2.0/db-derby-10.
     mv db-derby-10.10.2.0-bin /usr/local/derby && \
     rm db-derby-10.10.2.0-bin.tar.gz
 
-# install hive 2.1.1
-RUN wget http://www-eu.apache.org/dist/hive/hive-2.1.1/apache-hive-2.1.1-bin.tar.gz && \
-    tar -xzvf  apache-hive-2.1.1-bin.tar.gz && \
-    mv apache-hive-2.1.1-bin  /usr/local/hive && \
-    rm apache-hive-2.1.1-bin.tar.gz
+# install hive 2.2.0
+RUN wget http://www-eu.apache.org/dist/hive/hive-2.2.0/apache-hive-2.2.0-bin.tar.gz && \
+    tar -xzvf  apache-hive-2.2.0-bin.tar.gz && \
+    mv apache-hive-2.2.0-bin  /usr/local/hive && \
+    rm apache-hive-2.2.0-bin.tar.gz
 
 # install pig 0.16.0
 RUN wget http://www-eu.apache.org/dist/pig/pig-0.16.0/pig-0.16.0.tar.gz && \
