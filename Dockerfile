@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM ubuntu:16.04
 
 MAINTAINER Johnson Wang <johnsonwangnz@gmail.com>
 
@@ -6,7 +6,7 @@ WORKDIR /root
 
 # set environment variable
 ENV TZ=Pacific/Auckland
-ENV JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
+ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 ENV HADOOP_HOME=/usr/local/hadoop
 ENV ZOOKEEPER_HOME=/usr/local/zookeeper
 ENV HBASE_HOME=/usr/local/hbase
@@ -21,15 +21,17 @@ ENV SQOOP_HOME=/usr/local/sqoop
 ENV PATH=$PATH:/usr/local/hadoop/bin:/usr/local/hadoop/sbin
 
 #set the timezone
-RUN echo $TZ | tee /etc/timezone && \
+RUN apt-get update && \
+    apt-get install -y tzdata && \
+    echo $TZ | tee /etc/timezone && \
     dpkg-reconfigure --frontend noninteractive tzdata
 
 
-#install openssh-server, openjdk-7-jdk wget
-RUN apt-get update && apt-get install -y openssh-server openjdk-7-jdk wget
 
-#install full vim 
-RUN apt-get install -y vim
+#install openssh-server, openjdk-8-jdk wget vim
+RUN apt-get install -y openssh-server openjdk-8-jdk wget vim
+
+
 
 # install hadoop 2.7.3
 RUN wget http://www-eu.apache.org/dist/hadoop/common/hadoop-2.7.3/hadoop-2.7.3.tar.gz && \
