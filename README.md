@@ -37,17 +37,19 @@ sudo docker-compose build
 ./start-hadoop.sh
 
 # To start hbase
-./start-zookeeper.sh
+./start-zookeeper.sh  
 ./start-hbase.sh
 
 # To use hbase
 $HBASE_HOME/bin/hbase
 
 # To install hive
-./install-hive.sh
+./install-hive.sh  
 This only need to be run once when first time you initialize hive meta store
 
 # To use hive 
+./start-hive.sh  
+This starts metadata service   
 $HIVE_HOME/bin/hive
 
 # To use pig
@@ -61,7 +63,7 @@ $PIG_HOME/bin/pig
 $SPARK_HOME/bin/pyspark --master spark://hadoop-master:7077
 
 # To Start kafka
-./start-zookeeper.sh
+./start-zookeeper.sh  
 ./start-kafka.sh
 
 # Mounted volume:
