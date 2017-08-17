@@ -56,8 +56,8 @@ $HIVE_HOME/bin/hive
 $PIG_HOME/bin/pig
 
 # To start spark
-./start-hive.sh 
-./start-spark.sh
+./start-hive.sh  
+./start-spark.sh 
 
 # To use pyspark  
 $SPARK_HOME/bin/pyspark --master spark://hadoop-master:7077
