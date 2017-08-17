@@ -54,6 +54,7 @@ $HIVE_HOME/bin/hive
 $PIG_HOME/bin/pig
 
 # To start spark
+./start-hive.sh 
 ./start-spark.sh
 
 # To use pyspark  
