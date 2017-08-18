@@ -20,6 +20,12 @@ ENV FLUME_HOME=/usr/local/flume
 ENV SQOOP_HOME=/usr/local/sqoop
 ENV PATH=$PATH:/usr/local/hadoop/bin:/usr/local/hadoop/sbin
 
+# add keys for sbt
+RUN apt-get update && \
+    apt-get install -y apt-transport-https && \
+    echo "deb https://dl.bintray.com/sbt/debian /" | tee -a /etc/apt/sources.list.d/sbt.list && \
+    apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2EE0EA64E40A89B84B2DF73499E82A75642AC823
+
 #set the timezone
 RUN apt-get update && \
     apt-get install -y tzdata && \
@@ -28,8 +34,8 @@ RUN apt-get update && \
 
 
 
-#install openssh-server, openjdk-8-jdk wget vim
-RUN apt-get install -y openssh-server openjdk-8-jdk wget vim
+#install openssh-server, openjdk-8-jdk wget vim sbt tree
+RUN apt-get install -y openssh-server openjdk-8-jdk wget vim sbt tree
 
 
 
@@ -71,11 +77,11 @@ RUN wget http://www-eu.apache.org/dist/pig/pig-0.16.0/pig-0.16.0.tar.gz && \
     rm pig-0.16.0.tar.gz
 
  
-# install Spark 2.1.0
-RUN wget http://d3kbcqa49mib13.cloudfront.net/spark-2.1.0-bin-hadoop2.7.tgz && \
-    tar -xzvf  spark-2.1.0-bin-hadoop2.7.tgz && \
-    mv spark-2.1.0-bin-hadoop2.7 /usr/local/spark && \
-    rm spark-2.1.0-bin-hadoop2.7.tgz
+# install Spark 2.2.0
+RUN wget http://d3kbcqa49mib13.cloudfront.net/spark-2.2.0-bin-hadoop2.7.tgz && \
+    tar -xzvf  spark-2.2.0-bin-hadoop2.7.tgz && \
+    mv spark-2.2.0-bin-hadoop2.7 /usr/local/spark && \
+    rm spark-2.2.0-bin-hadoop2.7.tgz
 
 # install Kafka 0.10.2.0
 RUN wget http://www-eu.apache.org/dist/kafka/0.10.2.0/kafka_2.11-0.10.2.0.tgz && \
