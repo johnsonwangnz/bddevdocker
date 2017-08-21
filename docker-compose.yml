@@ -23,6 +23,8 @@ services:
       - "4040:4040"
       # port for web ui spark master
       - "8080:8080"
+      # port for hadoop-master
+      - "9000:9000"
     networks:
       bdnetwork:
         ipv4_address: 172.18.0.2
