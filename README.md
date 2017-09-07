@@ -66,6 +66,12 @@ $SPARK_HOME/bin/pyspark --master spark://hadoop-master:7077
 ./start-zookeeper.sh  
 ./start-kafka.sh
 
+# To start kafka rest proxy
+./start-zookeeper.sh  
+./start-kafka.sh    
+./start-kafkarest.sh  
+
+
 # Mounted volume:
 ~/shared ==> /data on host
  

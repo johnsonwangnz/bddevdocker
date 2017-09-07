@@ -25,6 +25,8 @@ services:
       - "8080:8080"
       # port for hadoop-master
       - "9000:9000"
+      # port for kafka-rest proxy
+      - "18082:18082"
     networks:
       bdnetwork:
         ipv4_address: 172.18.0.2
@@ -70,6 +72,8 @@ services:
     ports:
       #ports for web ui of spark worker
       - "8082:8081"
+      #port for shcema-resitry
+      - "18081:18081" 
     networks:
       bdnetwork:
         ipv4_address: 172.18.0.4

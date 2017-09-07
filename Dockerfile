@@ -18,6 +18,7 @@ ENV KAFKA_HOME=/usr/local/kafka
 ENV ZEPPELIN_HOME=/usr/local/zeppelin
 ENV FLUME_HOME=/usr/local/flume
 ENV SQOOP_HOME=/usr/local/sqoop
+ENV KAFKAREST_HOME=/usr/local/confluent
 ENV PATH=$PATH:/usr/local/hadoop/bin:/usr/local/hadoop/sbin
 
 # add keys for sbt
@@ -108,6 +109,13 @@ RUN wget http://www-eu.apache.org/dist/sqoop/1.4.6/sqoop-1.4.6.bin__hadoop-2.0.4
     mv sqoop-1.4.6.bin__hadoop-2.0.4-alpha /usr/local/sqoop && \
     rm  sqoop-1.4.6.bin__hadoop-2.0.4-alpha.tar.gz	 
 
+# install confluent 3.2.2 for kafka-rest proxy
+RUN wget http://packages.confluent.io/archive/3.2/confluent-oss-3.2.2-2.11.tar.gz && \
+    tar -xzvf confluent-oss-3.2.2-2.11.tar.gz && \
+    mv confluent-3.2.2 /usr/local/confluent && \
+    rm  confluent-oss-3.2.2-2.11.tar.gz
+
+
 # ssh without key
 RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa -P '' && \
     cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
@@ -157,6 +165,10 @@ RUN mv /tmp/ssh_config ~/.ssh/config && \
     mv /tmp/kafka-server-1.properties $KAFKA_HOME/config/server-1.properties && \
     mv /tmp/kafka-server-2.properties $KAFKA_HOME/config/server-2.properties && \
     mv /tmp/start-kafka.sh ~/start-kafka.sh && \
+    # confluent installation
+    mv /tmp/kafka-rest.properties $KAFKAREST_HOME/etc/kafka-rest/kafka-rest.properties && \
+    mv /tmp/schema-registry.properties $KAFKAREST_HOME/etc/schema-registry/schema-registry.properties && \
+    mv /tmp/start-kafkarest.sh ~/start-kafkarest.sh && \
     # zeppelin installation
     mv /tmp/zeppelin-env.sh $ZEPPELIN_HOME/conf && \
     mv /tmp/start-zeppelin.sh ~/start-zeppelin.sh
@@ -174,6 +186,7 @@ RUN chmod +x ~/start-hadoop.sh && \
     chmod +x $HADOOP_HOME/sbin/start-dfs.sh && \
     chmod +x $HADOOP_HOME/sbin/start-yarn.sh && \
     chmod +x $HBASE_HOME/bin/start-hbase.sh && \
+    chmod +x ~/start-kafkarest.sh && \
     chmod +x $SPARK_HOME/sbin/start-all.sh 
 
 # format namenode
